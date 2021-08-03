@@ -1,0 +1,12 @@
+.header {
+	box-shadow: 0 4px 6px 0 rgb(0 0 0 / 15%);
+
+	.profile {
+		display: flex;
+		justify-content: flex-end;
+
+		img {
+			cursor: pointer;
+		}
+	}
+}
