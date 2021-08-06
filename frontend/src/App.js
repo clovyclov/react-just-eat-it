@@ -6,17 +6,19 @@ import Header from './components/Header';
 
 function App() {
 	useEffect(() => {
-		axios.get(`${base_url}q=chicken`).then((data) => console.log(data)).catch((err) => console.log(err.message));
+		axios.get('/recipes').then((data) => {
+			setRecipes(data.data.hits);
+		});
 	}, []);
 
-	const [
-		recipes,
-		setRecipes
-	] = useState({});
+	const [ recipes, setRecipes ] = useState([]);
 
+	console.log(recipes);
 	return (
 		<div className="App">
 			<Header />
+			<h1>Recipe List</h1>
+			{recipes && recipes.map((recipe) => <div>{recipe.recipe.label}</div>)}
 		</div>
 	);
 }
