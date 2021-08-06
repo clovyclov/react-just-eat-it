@@ -31,6 +31,9 @@ const HeaderDiv = styled(motion.div)`
 	background-color: white;
 	box-shadow: 0 4px 6px 0 #00000017;
 	border-bottom-right-radius: 75px;
+	position: fixed;
+    top: 0;
+    width: 100%;
 
 	.profile {
 		display: flex;
