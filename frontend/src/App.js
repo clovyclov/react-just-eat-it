@@ -3,22 +3,44 @@ import { useState, useEffect } from 'react';
 import { base_url } from './api';
 import './App.css';
 import Header from './components/Header';
+import Recipes from './components/Recipes';
+import GlobalStyles from './components/GlobalStyles';
 
 function App() {
+	const [ searchTerm, setSearchTerm ] = useState('');
+	const [ recipeTitle, setRecipeTitle ] = useState('');
+	useEffect(
+		() => {
+			console.log(searchTerm);
+		},
+		[ searchTerm ]
+	);
 	useEffect(() => {
-		axios.get('/recipes').then((data) => {
-			setRecipes(data.data.hits);
-		});
+		if (searchTerm == '') {
+			axios
+				.get('/recipes', {
+					params : {
+						q : 'chicken'
+					}
+				})
+				.then((data) => {
+					setRecipes(data.data.hits);
+				});
+		}
 	}, []);
 
 	const [ recipes, setRecipes ] = useState([]);
 
-	console.log(recipes);
 	return (
 		<div className="App">
-			<Header />
-			<h1>Recipe List</h1>
-			{recipes && recipes.map((recipe) => <div>{recipe.recipe.label}</div>)}
+			<GlobalStyles />
+			<Header
+				searchTerm={searchTerm}
+				setSearchTerm={setSearchTerm}
+				setRecipes={setRecipes}
+				setRecipeTitle={setRecipeTitle}
+			/>
+			<Recipes recipes={recipes} recipeTitle={recipeTitle} setRecipeTitle={setRecipeTitle} />
 		</div>
 	);
 }
