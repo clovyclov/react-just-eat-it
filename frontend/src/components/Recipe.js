@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { AppState } from '../App';
 
 const Recipe = ({ label, image, source, calories, dishType, mealType }) => {
+	const stateList = useContext(AppState);
+	console.log(stateList);
+	const seeRecipeDetails = () => {
+		stateList.setCurrentRecipe({
+			label,
+			image,
+			source,
+			calories,
+			dishType,
+			mealType
+		});
+		console.log('Recipe', stateList.currentRecipe);
+	};
+
 	return (
 		<RecipeDiv className="recipe">
 			{image && <img src={image} alt={label} />}
 			<h2>{label}</h2>
 			<p className="calories">Calories: {Math.round(calories)}</p>
-			<button className="see-recipe">See Recipe</button>
+			<button className="see-recipe" onClick={seeRecipeDetails}>
+				See Recipe
+			</button>
 		</RecipeDiv>
 	);
 };
