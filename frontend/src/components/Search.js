@@ -22,12 +22,18 @@ const Search = ({ searchTerm, setSearchTerm, setRecipes, setRecipeTitle }) => {
 	};
 	return (
 		<HeaderContainer>
-			<Input className="search-container">
+			<FormContainer className="search-container">
 				<Form onSubmit={(e) => e.preventDefault()}>
-					<input type="text" className="search" value={searchTerm} onChange={updateSearchTerm} />
+					<input
+						type="text"
+						placeholder="Search Recipes..."
+						className="search"
+						value={searchTerm}
+						onChange={updateSearchTerm}
+					/>
 					<button onClick={handleSearch}>Search</button>
 				</Form>
-			</Input>
+			</FormContainer>
 
 			<div className="profile">
 				<img src={profile} alt="Profile Picture" />
@@ -46,7 +52,7 @@ const Form = styled.form`
 	align-content: center;
 	justify-content: center;
 `;
-const Input = styled(motion.div)`
+const FormContainer = styled(motion.div)`
     border: 1px solid #CFCFCF;
     border-radius: 20px;
     text-align: center;

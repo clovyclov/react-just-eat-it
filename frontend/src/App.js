@@ -5,6 +5,7 @@ import './App.css';
 import Header from './components/Header';
 import Recipes from './components/Recipes';
 import GlobalStyles from './components/GlobalStyles';
+import RecipeDetails from './components/RecipeDetails';
 
 export const AppState = createContext();
 function App() {
@@ -12,6 +13,8 @@ function App() {
 	const [ recipeTitle, setRecipeTitle ] = useState('');
 	const [ currentRecipe, setCurrentRecipe ] = useState({});
 	const [ recipeActive, setRecipeActive ] = useState(false);
+	const [ recipes, setRecipes ] = useState([]);
+
 	const stateValues = {
 		searchTerm,
 		setSearchTerm,
@@ -22,18 +25,15 @@ function App() {
 		recipeActive,
 		setRecipeActive
 	};
-	useEffect(
-		() => {
-			console.log(searchTerm);
-		},
-		[ searchTerm ]
-	);
+
+	//useEffect(() => {}, [ searchTerm ]);
+	//useEffect(() => {}, [ currentRecipe ]);
 	useEffect(() => {
-		if (searchTerm == '') {
+		if (searchTerm === '') {
 			axios
 				.get('/recipes', {
 					params : {
-						q : 'chicken'
+						q : 'food'
 					}
 				})
 				.then((data) => {
@@ -41,8 +41,6 @@ function App() {
 				});
 		}
 	}, []);
-
-	const [ recipes, setRecipes ] = useState([]);
 
 	return (
 		<AppState.Provider value={stateValues}>
@@ -55,6 +53,7 @@ function App() {
 					setRecipeTitle={setRecipeTitle}
 				/>
 				<Recipes recipes={recipes} recipeTitle={recipeTitle} setRecipeTitle={setRecipeTitle} />
+				<RecipeDetails />
 			</div>
 		</AppState.Provider>
 	);

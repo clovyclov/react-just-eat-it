@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { AppState } from '../App';
 
-const Recipe = ({ label, image, source, calories, dishType, mealType }) => {
+const Recipe = ({ label, image, source, calories, dishType, mealType, ingredients }) => {
 	const stateList = useContext(AppState);
-	console.log(stateList);
+	//console.log(stateList);
 	const seeRecipeDetails = () => {
 		stateList.setCurrentRecipe({
 			label,
@@ -13,9 +13,11 @@ const Recipe = ({ label, image, source, calories, dishType, mealType }) => {
 			source,
 			calories,
 			dishType,
-			mealType
+			mealType,
+			ingredients
 		});
-		console.log('Recipe', stateList.currentRecipe);
+		stateList.setRecipeActive(true);
+		console.log('Recipe Clicked', stateList.currentRecipe);
 	};
 
 	return (
